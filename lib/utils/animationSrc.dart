@@ -15,6 +15,15 @@ class AnimationFile {
       case "Chuva forte":
         this.url = "weather-thunder";
         break;
+      case "Chuva moderada ou forte com trovoada":
+        this.url = "weather-thunder";
+        break;
+      case "Encoberto":
+        this.url = "weather-cloudynight";
+        break;
+      case "Chuva moderada":
+        this.url = "weather-windy";
+        break;
     }
   }
 }
