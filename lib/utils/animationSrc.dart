@@ -15,6 +15,9 @@ class AnimationFile {
       case "Chuva forte":
         this.url = "weather-thunder";
         break;
+      case "Chuva fraca":
+        this.url = "partly-shower";
+        break;
       case "Chuva moderada ou forte com trovoada":
         this.url = "weather-thunder";
         break;
