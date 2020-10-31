@@ -41,7 +41,7 @@ class HomeView extends HomeViewModel {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         FutureBuilder(
-                          future: espera,
+                          future: waitAllCities,
                           // AsyncSnapshot<List<dynamic>>
                           builder: (context, snapshot) {
                             return snapshot.connectionState ==
@@ -87,7 +87,7 @@ class HomeView extends HomeViewModel {
                                                       .height *
                                                   0.12,
                                               child: Lottie.asset(
-                                                  "assets/animations/${AnimationFile.returnFileUrl(listWeathers[index].current.condition.text).url.toString()}.json"),
+                                                  "assets/animations/${AnimationFile.returnFileUrl(condition: listWeathers[index].current.condition.text, hour: listWeathers[index].current.lastUpdated.split(" ")[1]).url.toString()}.json"),
                                             ),
                                             Text(
                                               "${listWeathers[index].current.feelslikeC.round()}ºC",
@@ -134,7 +134,7 @@ class HomeView extends HomeViewModel {
                           },
                         ),
                         FutureBuilder(
-                          future: espera,
+                          future: waitAllCities,
                           builder: (context, snapshot) {
                             return snapshot.connectionState ==
                                     ConnectionState.done
@@ -143,8 +143,10 @@ class HomeView extends HomeViewModel {
                                     // color: Colors.red,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
-                                      itemCount: climaTempo
-                                          .forecast.forecastday.length,
+                                      itemCount: listWeathers[index]
+                                          .forecast
+                                          .forecastday
+                                          .length,
                                       itemBuilder: (context, i) {
                                         return Container(
                                           decoration: BoxDecoration(
@@ -167,7 +169,10 @@ class HomeView extends HomeViewModel {
                                                 child: GestureDetector(
                                                   onTap: () =>
                                                       configurandoModalBottomSheet(
-                                                          context),
+                                                          context,
+                                                          listWeathers[index]
+                                                              .forecast
+                                                              .forecastday[i]),
                                                   child: Container(
                                                     width:
                                                         MediaQuery.of(context)
@@ -188,7 +193,7 @@ class HomeView extends HomeViewModel {
                                                               .spaceAround,
                                                       children: [
                                                         Lottie.asset(
-                                                            "assets/animations/${getUrlAnimation(listWeathers[index].forecast.forecastday[i].day.condition)}.json"),
+                                                            "assets/animations/${getUrlAnimation(listWeathers[index].forecast.forecastday[i].day.condition, '12:00')}.json"),
                                                         Text(
                                                           "${listWeathers[index].forecast.forecastday[i].day.maxtempC.round()}ºC",
                                                           style: TextStyle(

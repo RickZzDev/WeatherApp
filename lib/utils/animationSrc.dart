@@ -1,31 +1,72 @@
 class AnimationFile {
   String condition;
   String url;
-  AnimationFile.returnFileUrl(this.condition) {
+  String hour;
+  AnimationFile.returnFileUrl({this.condition, this.hour}) {
     switch (condition) {
       case "Parcialmente nublado":
-        this.url = "partly-cloudy";
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-cloudynight"
+            : this.url = "partly-cloudy";
         break;
       case "Sol":
         this.url = "sunny";
         break;
       case "Possibilidade de chuva irregular":
-        this.url = "partly-shower";
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-rainynight"
+            : this.url = "partly-shower";
         break;
       case "Chuva forte":
-        this.url = "weather-thunder";
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-rainynight"
+            : this.url = "weather-thunder";
         break;
       case "Chuva fraca":
-        this.url = "partly-shower";
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-rainynight"
+            : this.url = "partly-shower";
         break;
       case "Chuva moderada ou forte com trovoada":
-        this.url = "weather-thunder";
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-cloudynight"
+            : this.url = "weather-thunder";
+        break;
+      case "Chuvisco":
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-rainynight"
+            : this.url = "partly-shower";
+        break;
+      case "Nublado":
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-cloudynight"
+            : this.url = "partly-cloudy";
         break;
       case "Encoberto":
-        this.url = "weather-cloudynight";
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-cloudynight"
+            : this.url = "partly-cloudy";
         break;
       case "Chuva moderada":
-        this.url = "weather-windy";
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-rainynight"
+            : this.url = "weather-windy";
+        break;
+      case "Aguaceiros fracos":
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-rainynight"
+            : this.url = "partly-shower";
+
         break;
     }
   }
