@@ -13,6 +13,19 @@ class AnimationFile {
       case "Sol":
         this.url = "sunny";
         break;
+      case "Possibilidade de trovoada":
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-rainynight"
+            : this.url = "weather-thunder";
+        break;
+
+      case "CÃ©u limpo":
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-night"
+            : this.url = "sunny";
+        break;
       case "Possibilidade de chuva irregular":
         double hourDouble = double.parse(this.hour.split(":")[0]);
         hourDouble < 6 || hourDouble > 18
