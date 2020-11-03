@@ -2,6 +2,7 @@ class WeatherClass {
   Location location;
   Current current;
   Forecast forecast;
+  String imgPath;
 
   WeatherClass({this.location, this.current, this.forecast});
 

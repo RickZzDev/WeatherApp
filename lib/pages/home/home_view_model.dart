@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:weatherApp/components/bottom_sheet.dart';
+import 'package:weatherApp/models/img_model.dart';
 import 'package:weatherApp/models/search_model.dart';
 import 'package:weatherApp/models/weather_model.dart';
 import 'package:weatherApp/pages/home/home.dart';
 import 'package:weatherApp/utils/animationSrc.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
+import 'package:weatherApp/utils/databaseHelper.dart';
 import 'package:weatherApp/utils/imagesList.dart';
 
 abstract class HomeViewModel extends State<Home> {
@@ -24,12 +26,20 @@ abstract class HomeViewModel extends State<Home> {
 
   Future espera;
   List<String> arrayImages = ImagesList().returnArray();
+  DataBaseHelper db = DataBaseHelper();
+  double lengthInt;
+
+  List<ImgModel> contatos = List<ImgModel>();
+  ImgModel jandiraCity = ImgModel(0, "Jandira", "cityArt1.jpeg");
 
   @override
   void initState() {
     super.initState();
-    awaitHttpResponse();
+    // awaitHttpResponse();
     arrayImages.shuffle();
+    lengthInt = arrayImages.length * 0.5;
+
+    // db.insertImgCity(jandiraCity).then((value) => print(value));
   }
 
   void configurandoModalBottomSheet(context, Forecastday dayStats) {

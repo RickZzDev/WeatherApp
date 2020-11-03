@@ -11,7 +11,7 @@ class BottomSheetCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.4,
+      height: MediaQuery.of(context).size.height * 0.45,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
           Radius.circular(10),
@@ -111,8 +111,7 @@ class BottomSheetCustom extends StatelessWidget {
                                       MediaQuery.of(context).size.width * 0.55,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 6, vertical: 6),
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.2,
+                                  height: 170,
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
