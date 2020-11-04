@@ -55,21 +55,26 @@ class _MyAppState extends State<MyApp> {
 
       var decodedJson = convert.jsonDecode(reqLatLong.body);
       WeatherClass cityToAdd = WeatherClass.fromJson(decodedJson);
-      // listWeathers.removeWhere(
-      //     (element) => element.location.name == cityToAdd.location.name);
+      listWeathers.removeWhere(
+          (element) => element.location.name == cityToAdd.location.name);
 
-      verifyImages(cityToAdd);
-      // setState(() {
-      //   listWeathers.add(cityToAdd);
-      // });
+      // verifyImages(cityToAdd);
+      setState(() {
+        imgsDb.length > 0
+            ? imgsDb.forEach((img) {
+                img.cityName == cityToAdd.location.name
+                    ? cityToAdd.imgPath = img.imgPath
+                    : null;
+              })
+            : null;
+        listWeathers.add(cityToAdd);
+      });
 
       // return listWeathers;
     });
   }
 
   Future verifyImages(WeatherClass _city) async {
-    listWeathers
-        .removeWhere((element) => element.location.name == _city.location.name);
     imgsDb.length > 0
         ? imgsDb.forEach((img) {
             img.cityName == _city.location.name
@@ -77,9 +82,6 @@ class _MyAppState extends State<MyApp> {
                 : null;
           })
         : null;
-    setState(() {
-      listWeathers.add(_city);
-    });
   }
 
   Future<dynamic> _getSearchEndpoint() async {

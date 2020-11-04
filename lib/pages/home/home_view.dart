@@ -127,7 +127,7 @@ class HomeView extends HomeViewModel {
                 color: Colors.purple,
                 textColor: Colors.white,
                 onPressed: () => sendImgToDb(arrayImages[_selectedImg.toInt()],
-                    _listWeathers[_selectedImg].location.name),
+                    _listWeathers[_myIndexLocal].location.name),
                 child: Text("Salvar wallpaper"),
               )
             ],
