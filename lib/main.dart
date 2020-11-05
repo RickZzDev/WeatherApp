@@ -6,12 +6,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'package:weatherApp/database/databaseHelper.dart';
 import 'package:weatherApp/models/img_model.dart';
 import 'package:weatherApp/models/search_model.dart';
 import 'package:weatherApp/models/weather_model.dart';
 import 'package:weatherApp/pages/home/home.dart';
-import 'package:weatherApp/database/databaseHelper.dart';
-import 'package:weatherApp/utils/imagesList.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,6 +45,10 @@ class _MyAppState extends State<MyApp> {
 
       await verifyImages(cityToAdd);
     });
+
+    return Future.value(Home(
+      listWeather: listWeathers,
+    ));
   }
 
   Future verifyImages(WeatherClass _city) async {

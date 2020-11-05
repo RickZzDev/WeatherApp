@@ -1,3 +1,5 @@
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -18,11 +20,32 @@ abstract class HomeViewModel extends State<Home> {
 
   List<ImgModel> contatos = List<ImgModel>();
 
+  Duration _duration = new Duration();
+  Duration _position = new Duration();
+  AudioPlayer advancedPlayer;
+  AudioCache audioCache;
+  String localFilePath;
+
   @override
   void initState() {
     super.initState();
-
+    initPlayer();
     arrayImages.shuffle();
+  }
+
+  void initPlayer() {
+    advancedPlayer = new AudioPlayer();
+    audioCache = new AudioCache(fixedPlayer: advancedPlayer);
+
+    // advancedPlayer.durationHandler = (d) => setState(() {
+    //       _duration = d;
+    //     });
+
+    // advancedPlayer.positionHandler = (p) => setState(() {
+    //       _position = p;
+    //     });
+
+    audioCache.play("audios/sunny.mp3");
   }
 
   void configurandoModalBottomSheet(context, Forecastday dayStats) {

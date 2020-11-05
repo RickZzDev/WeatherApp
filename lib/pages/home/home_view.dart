@@ -42,7 +42,8 @@ class HomeView extends HomeViewModel {
           actions: [
             IconButton(
               alignment: Alignment.centerRight,
-              onPressed: () => _showModal(context),
+              onPressed: () => advancedPlayer.pause(),
+              // onPressed: () => _showModal(context),
               icon: Icon(
                 Icons.build_sharp,
                 color: Colors.white,
