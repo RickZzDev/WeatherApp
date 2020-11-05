@@ -121,6 +121,7 @@ Widget _introScreen(List<WeatherClass> _list) {
         navigateAfterSeconds: Home(
           listWeather: _list,
         ),
+        routeName: "/home",
         loaderColor: Colors.transparent,
       ),
       Column(
