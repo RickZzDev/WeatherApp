@@ -2,10 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:weatherApp/components/card_weather_main.dart';
-import 'package:weatherApp/components/card_weather_sub.dart';
-import 'package:weatherApp/components/modal_img.dart';
-import 'package:weatherApp/components/shimmer_screen.dart';
+import 'package:weatherApp/components/cards/card_weather_main.dart';
+import 'package:weatherApp/components/cards/card_weather_sub.dart';
+import 'package:weatherApp/components/modals/modal_img.dart';
+import 'package:weatherApp/components/shimmers/shimmer_screen.dart';
 import 'package:weatherApp/models/img_model.dart';
 import 'package:weatherApp/models/weather_model.dart';
 import 'package:weatherApp/pages/home/home_view_model.dart';
@@ -16,10 +16,13 @@ class HomeView extends HomeViewModel {
   int _selectedImg;
   int _myIndexLocal = 0;
 
-  void sendImgToDb(String path, String cityName) {
+  void sendImgToDb(String path, String cityName) async {
     Map<String, dynamic> map = {"cityName": cityName, "imgPath": path};
     ImgModel _imgModelFromMap = ImgModel.fromMap(map);
-    db.insertImgCity(_imgModelFromMap).then((value) => print(value));
+    await db.insertImgCity(_imgModelFromMap);
+    setState(() {
+      _listWeathers[_myIndexLocal].imgPath = path;
+    });
   }
 
   void _showModal(BuildContext _context) {
