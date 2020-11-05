@@ -46,7 +46,22 @@ class DataBaseHelper {
   //Incluir um objeto
   Future<int> insertImgCity(ImgModel imgModel) async {
     Database db = await this.database;
-    var resultado = db.insert(imgTable, imgModel.toMap());
+    ImgModel _response = await getByName(imgModel.cityName);
+    if (_response == null)
+      db.insert(imgTable, imgModel.toMap());
+    else {
+      imgModel.id = _response.id;
+      updateImage(imgModel);
+    }
+  }
+
+  Future<int> updateImage(ImgModel _imgModel) async {
+    Database db = await this.database;
+
+    var resultado = db.update(imgTable, _imgModel.toMap(),
+        where: '$colId = ?', whereArgs: [_imgModel.id]);
+
+    return resultado;
   }
 
   Future<List<ImgModel>> getAllImgsCities() async {
@@ -56,6 +71,20 @@ class DataBaseHelper {
         ? resultado.map((e) => ImgModel.fromMap(e)).toList()
         : [];
     return lista;
+  }
+
+  Future<ImgModel> getByName(String cityName) async {
+    Database db = await this.database;
+    List<Map> maps = await db.query(imgTable,
+        columns: [colId, colImgPath, colCityName],
+        where: "$colCityName = ?",
+        whereArgs: [cityName]);
+
+    if (maps.length > 0) {
+      return ImgModel.fromMap(maps.first);
+    } else {
+      return null;
+    }
   }
 
   Future<ImgModel> getImg(int id) async {

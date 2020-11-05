@@ -32,6 +32,12 @@ class AnimationFile {
             ? this.url = "weather-rainynight"
             : this.url = "partly-shower";
         break;
+      case "PerÃ­odos de chuva moderada":
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-rainynight"
+            : this.url = "partly-shower";
+        break;
       case "Chuva forte":
         double hourDouble = double.parse(this.hour.split(":")[0]);
         hourDouble < 6 || hourDouble > 18
@@ -56,6 +62,12 @@ class AnimationFile {
             ? this.url = "weather-rainynight"
             : this.url = "partly-shower";
         break;
+      case "Chuvisco irregular":
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-rainynight"
+            : this.url = "partly-shower";
+        break;
       case "Nublado":
         double hourDouble = double.parse(this.hour.split(":")[0]);
         hourDouble < 6 || hourDouble > 18
@@ -69,6 +81,13 @@ class AnimationFile {
             : this.url = "partly-cloudy";
         break;
       case "Chuva moderada":
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-rainynight"
+            : this.url = "weather-windy";
+        break;
+
+      case "Chuva fraca irregular":
         double hourDouble = double.parse(this.hour.split(":")[0]);
         hourDouble < 6 || hourDouble > 18
             ? this.url = "weather-rainynight"

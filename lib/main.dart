@@ -1,23 +1,16 @@
-import 'dart:io';
+import 'dart:convert' as convert;
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:splashscreen/splashscreen.dart';
-import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
-import 'package:weatherApp/components/shimmer_screen.dart';
+import 'package:lottie/lottie.dart';
+import 'package:splashscreen/splashscreen.dart';
 import 'package:weatherApp/models/img_model.dart';
 import 'package:weatherApp/models/search_model.dart';
 import 'package:weatherApp/models/weather_model.dart';
 import 'package:weatherApp/pages/home/home.dart';
-import 'package:weatherApp/utils/animationSrc.dart';
-import 'package:weatherApp/utils/databaseHelper.dart';
+import 'package:weatherApp/database/databaseHelper.dart';
 import 'package:weatherApp/utils/imagesList.dart';
 
 void main() {
@@ -35,15 +28,8 @@ class _MyAppState extends State<MyApp> {
   Position latLong;
   Future<Position> position;
   List<WeatherClass> listWeathers = [];
-  Future testando;
   List<ImgModel> imgsDb;
 
-  // String weekDayName =
-  //     DateFormat("EEEE", "pt_Br").format(DateTime.now()).toString();
-
-  Future waitAllCities;
-
-  List<String> arrayImages = ImagesList().returnArray();
   DataBaseHelper db = DataBaseHelper();
 
   Future _getSingleCityWeather(SearchModelResponse a) async {
@@ -58,30 +44,21 @@ class _MyAppState extends State<MyApp> {
       listWeathers.removeWhere(
           (element) => element.location.name == cityToAdd.location.name);
 
-      // verifyImages(cityToAdd);
-      setState(() {
-        imgsDb.length > 0
-            ? imgsDb.forEach((img) {
-                img.cityName == cityToAdd.location.name
-                    ? cityToAdd.imgPath = img.imgPath
-                    : null;
-              })
-            : null;
-        listWeathers.add(cityToAdd);
-      });
-
-      // return listWeathers;
+      await verifyImages(cityToAdd);
     });
   }
 
   Future verifyImages(WeatherClass _city) async {
-    imgsDb.length > 0
-        ? imgsDb.forEach((img) {
-            img.cityName == _city.location.name
-                ? _city.imgPath = img.imgPath
-                : null;
-          })
-        : null;
+    setState(() {
+      imgsDb.length > 0
+          ? imgsDb.forEach((img) {
+              img.cityName == _city.location.name
+                  ? _city.imgPath = img.imgPath
+                  : null;
+            })
+          : null;
+      listWeathers.add(_city);
+    });
   }
 
   Future<dynamic> _getSearchEndpoint() async {
@@ -95,22 +72,6 @@ class _MyAppState extends State<MyApp> {
     searchList = SearchModelResponse.fromJson(decodedJson);
 
     await _getSingleCityWeather(searchList);
-
-    // List<ImgModel> imgsDb = await db.getAllImgsCities();
-
-    // imgsDb.length > 0
-    //     ? listWeathers.forEach((element) {
-    //         imgsDb.forEach((img) {
-    //           img.cityName == element.location.name
-    //               ? element.imgPath = img.imgPath
-    //               : null;
-    //         });
-    //       })
-    //     : null;
-
-    // setState(() {
-    //   listWeathers = listWeathers;
-    // });
   }
 
   Future<Position> _getPosition() async {
