@@ -1,16 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:weatherApp/components/bottom_sheet.dart';
+import 'package:weatherApp/database/databaseHelper.dart';
 import 'package:weatherApp/models/img_model.dart';
-import 'package:weatherApp/models/search_model.dart';
 import 'package:weatherApp/models/weather_model.dart';
 import 'package:weatherApp/pages/home/home.dart';
 import 'package:weatherApp/utils/animationSrc.dart';
-import 'dart:convert' as convert;
-import 'package:http/http.dart' as http;
-import 'package:weatherApp/database/databaseHelper.dart';
 import 'package:weatherApp/utils/imagesList.dart';
 
 abstract class HomeViewModel extends State<Home> {
