@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "426978697573",
+    "firebase_url": "https://storageweatherimgs.firebaseio.com",
+    "project_id": "storageweatherimgs",
+    "storage_bucket": "storageweatherimgs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426978697573:android:b95dc8596d63301b23018c",
+        "android_client_info": {
+          "package_name": "com.example.wheaterApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426978697573-252mqe1i7o9r929v030c9pr3n38s1s0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8ITuddZ0RJAhTyaPtrxZKDGOYnpGkPXE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "426978697573-252mqe1i7o9r929v030c9pr3n38s1s0f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

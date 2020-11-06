@@ -12,6 +12,8 @@ import 'package:weatherApp/pages/home/home.dart';
 import 'package:weatherApp/utils/animationSrc.dart';
 import 'package:weatherApp/utils/audioSrc.dart';
 import 'package:weatherApp/utils/imagesList.dart';
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 abstract class HomeViewModel extends State<Home> with WidgetsBindingObserver {
   String weekDayName =
@@ -26,14 +28,14 @@ abstract class HomeViewModel extends State<Home> with WidgetsBindingObserver {
   AudioCache audioCache;
   String localFilePath;
   SharedPreferences _preferences;
-  bool soundCache = false;
+  dynamic soundCache = false;
   int myIndexLocal = 0;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-
+    testeFire();
     arrayImages.shuffle();
   }
 
@@ -60,6 +62,11 @@ abstract class HomeViewModel extends State<Home> with WidgetsBindingObserver {
     }
   }
 
+  void testeFire() async {
+    await firebase_core.Firebase.initializeApp();
+    print(firebase_storage.FirebaseStorage.instance.bucket);
+  }
+
   Future getPreferencesInstance() async {
     _preferences = await SharedPreferences.getInstance();
   }
@@ -83,9 +90,9 @@ abstract class HomeViewModel extends State<Home> with WidgetsBindingObserver {
     );
   }
 
-  void verifySound(bool actualValue) {
+  void verifySound(dynamic actualValue) {
     // audios/sunny.mp3
-    actualValue
+    actualValue == true || actualValue == null
         ? audioCache.play(
             "audios/${AudioFile.returnFileUrl(condition: teste[0].current.condition.text).url}.mp3")
         : advancedPlayer.stop();

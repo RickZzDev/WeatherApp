@@ -43,7 +43,9 @@ class HomeView extends HomeViewModel {
               alignment: Alignment.centerRight,
               onPressed: () => setSoundPreferences(),
               icon: Icon(
-                soundCache ? Icons.volume_up_rounded : Icons.volume_off,
+                soundCache == true || soundCache == null
+                    ? Icons.volume_up_rounded
+                    : Icons.volume_off,
                 color: Colors.white,
               ),
             ),
