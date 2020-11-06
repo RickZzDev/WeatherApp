@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:weatherApp/components/details_container.dart';
+import 'package:weatherApp/components/generics/details_container.dart';
 import 'package:weatherApp/models/weather_model.dart';
 import 'package:weatherApp/utils/animationSrc.dart';
 

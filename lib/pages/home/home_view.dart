@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weatherApp/components/cards/card_weather_main.dart';
+import 'package:weatherApp/components/cards/card_weather_sub.dart';
 
-import 'package:weatherApp/components/card_weather_main.dart';
-import 'package:weatherApp/components/card_weather_sub.dart';
-import 'package:weatherApp/components/modal_img.dart';
-import 'package:weatherApp/components/shimmer_screen.dart';
+import 'package:weatherApp/components/modals/modal_img.dart';
+import 'package:weatherApp/components/shimmers/shimmer_screen.dart';
 import 'package:weatherApp/models/img_model.dart';
 import 'package:weatherApp/models/weather_model.dart';
 import 'package:weatherApp/pages/home/home_view_model.dart';
