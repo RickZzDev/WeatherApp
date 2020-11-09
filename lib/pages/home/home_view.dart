@@ -17,7 +17,7 @@ class HomeView extends HomeViewModel {
   void sendImgToDb(String path, String cityName) async {
     Map<String, dynamic> map = {"cityName": cityName, "imgPath": path};
     ImgModel _imgModelFromMap = ImgModel.fromMap(map);
-    await db.insertImgCity(_imgModelFromMap);
+    await db.insertImgCity(_imgModelFromMap, false);
     setState(() {
       teste[myIndexLocal].imgPath = path;
     });
@@ -25,9 +25,10 @@ class HomeView extends HomeViewModel {
 
   void _showModal(BuildContext _context) {
     showDialog(
-        context: _context,
-        child: ModalChooseImage(sendImgToDb,
-            _listWeathers[myIndexLocal].location.name, arrayImages));
+      context: _context,
+      child: ModalChooseImage(sendImgToDb,
+          _listWeathers[myIndexLocal].location.name, arrayImages, getImage),
+    );
   }
 
   @override

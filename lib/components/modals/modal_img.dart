@@ -1,13 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:weatherApp/components/generics/generic_button.dart';
+import 'package:weatherApp/database/databaseHelper.dart';
+import 'package:weatherApp/models/img_model.dart';
 
 class ModalChooseImage extends StatefulWidget {
   final Function _chooseImage;
   final String _cityName;
   final List<String> _arrayImages;
+  final Function imagePickerFunction;
 
-  ModalChooseImage(this._chooseImage, this._cityName, this._arrayImages);
+  ModalChooseImage(this._chooseImage, this._cityName, this._arrayImages,
+      this.imagePickerFunction);
 
   @override
   _ModalChooseImageState createState() => _ModalChooseImageState();
@@ -16,6 +21,28 @@ class ModalChooseImage extends StatefulWidget {
 class _ModalChooseImageState extends State<ModalChooseImage> {
   int _selectedImg;
   bool _sending = false;
+  dynamic _chooseFromApp;
+  DataBaseHelper db = DataBaseHelper();
+
+  changeChooseValue() {
+    setState(() {
+      _chooseFromApp = true;
+    });
+  }
+
+  Future sendLocalImgPathToDb(String _cityName, String _path) async {
+    Map<String, dynamic> map = {
+      "cityName": _cityName,
+      "imgPath": _path,
+      "isImgFromDevice": true
+    };
+    ImgModel _imgModelFromMap = ImgModel.fromMap(map);
+    await db.insertImgCity(_imgModelFromMap, false);
+    // setState(() {
+    //   teste[myIndexLocal].imgPath = path;
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     return StatefulBuilder(
@@ -93,7 +120,7 @@ class _ModalChooseImageState extends State<ModalChooseImage> {
                 ),
               ),
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.65,
+                // height: MediaQuery.of(context).size.height * 0.65,
                 width: MediaQuery.of(context).size.width * 0.6,
                 padding: EdgeInsets.only(top: 8),
                 child: Column(
@@ -108,21 +135,31 @@ class _ModalChooseImageState extends State<ModalChooseImage> {
                       widget._cityName,
                       style: TextStyle(fontFamily: "Lobster", fontSize: 18),
                     ),
+
                     AnimatedSwitcher(
                         duration: const Duration(milliseconds: 700),
-                        child: _sending
-                            ? Container(
-                                key: ValueKey<int>(1),
-                                // width: 100,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.55,
-                                // color: Colors.blue,
-                                child: Center(
-                                  child: Lottie.asset(
-                                      "assets/animations/sucess_anim.json"),
-                                ),
+                        child: _chooseFromApp == null
+                            ? Column(
+                                children: [
+                                  GenericButton("Escolher da galeria",
+                                      widget.imagePickerFunction),
+                                  GenericButton(
+                                      "Escolher do app", changeChooseValue),
+                                ],
                               )
-                            : _myListImages)
+                            : _sending == true
+                                ? Container(
+                                    key: ValueKey<int>(1),
+                                    // width: 100,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.55,
+                                    // color: Colors.blue,
+                                    child: Center(
+                                      child: Lottie.asset(
+                                          "assets/animations/sucess_anim.json"),
+                                    ),
+                                  )
+                                : _myListImages)
                     // AnimatedSwitcher(
                     //   duration: Duration(milliseconds: 1000),
                     //   child: _myListImages,

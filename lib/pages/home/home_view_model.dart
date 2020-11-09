@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weatherApp/components/modals/bottom_sheet.dart';
@@ -30,6 +33,8 @@ abstract class HomeViewModel extends State<Home> with WidgetsBindingObserver {
   SharedPreferences _preferences;
   dynamic soundCache = false;
   int myIndexLocal = 0;
+  File localImage;
+  final picker = ImagePicker();
 
   @override
   void initState() {
@@ -54,17 +59,30 @@ abstract class HomeViewModel extends State<Home> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.resumed) {
-      advancedPlayer
-          .resume(); // Audio player is a custom class with resume and pause static methods
-    } else {
-      advancedPlayer.stop();
-    }
+    // if (state == AppLifecycleState.resumed) {
+    //   advancedPlayer
+    //       .resume(); // Audio player is a custom class with resume and pause static methods
+    // } else {
+    //   advancedPlayer.stop();
+    // }
+    advancedPlayer.stop();
   }
 
   void testeFire() async {
     await firebase_core.Firebase.initializeApp();
     print(firebase_storage.FirebaseStorage.instance.bucket);
+  }
+
+  Future getImage() async {
+    final pickedFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        localImage = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
   }
 
   Future getPreferencesInstance() async {

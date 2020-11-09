@@ -68,6 +68,12 @@ class AnimationFile {
             ? this.url = "weather-rainynight"
             : this.url = "partly-shower";
         break;
+      case "Neblina":
+        double hourDouble = double.parse(this.hour.split(":")[0]);
+        hourDouble < 6 || hourDouble > 18
+            ? this.url = "weather-cloudynight"
+            : this.url = "partly-cloudy";
+        break;
       case "Nublado":
         double hourDouble = double.parse(this.hour.split(":")[0]);
         hourDouble < 6 || hourDouble > 18

@@ -13,6 +13,7 @@ class DataBaseHelper {
   String colId = "id";
   String colCityName = "cityName";
   String colImgPath = "imgPath";
+  String colIsImageFromDevice = "isImageFromDevice";
 
   DataBaseHelper._createInstance();
 
@@ -25,7 +26,7 @@ class DataBaseHelper {
 
   void _createDb(Database db, int newVersion) async {
     await db.execute(
-        'CREATE TABLE $imgTable($colId integer primary key autoincrement, $colCityName text, $colImgPath text)');
+        'CREATE TABLE $imgTable($colId integer primary key autoincrement,$colIsImageFromDevice boolean,$colCityName text, $colImgPath text)');
   }
 
   Future<Database> initDataBase() async {
@@ -44,7 +45,7 @@ class DataBaseHelper {
   }
 
   //Incluir um objeto
-  Future<int> insertImgCity(ImgModel imgModel) async {
+  Future<int> insertImgCity(ImgModel imgModel, bool _imgFromDevice) async {
     Database db = await this.database;
     ImgModel _response = await getByName(imgModel.cityName);
     if (_response == null)

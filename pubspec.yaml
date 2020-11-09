@@ -43,6 +43,8 @@ dependencies:
   audioplayers: ^0.13.2
   shared_preferences:
   firebase_storage:
+  image_picker:
+  provider: ^4.3.2+2
 
 dev_dependencies:
   flutter_test:

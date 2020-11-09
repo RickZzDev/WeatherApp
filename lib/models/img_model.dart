@@ -1,15 +1,17 @@
 class ImgModel {
   int id;
   String cityName;
+  bool isImgFromDevice;
   String imgPath;
 
-  ImgModel(this.id, this.cityName, this.imgPath);
+  ImgModel(this.id, this.cityName, this.imgPath, this.isImgFromDevice);
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
       "id": id,
       "cityName": cityName,
-      "imgPath": imgPath
+      "imgPath": imgPath,
+      "isImgFromDevice": isImgFromDevice
     };
     return map;
   }
@@ -18,5 +20,6 @@ class ImgModel {
     id = map['id'];
     cityName = map['cityName'];
     imgPath = map['imgPath'];
+    isImgFromDevice = map['isImgFromDevice'];
   }
 }
