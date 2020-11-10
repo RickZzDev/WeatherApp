@@ -45,12 +45,6 @@ abstract class HomeViewModel extends State<Home> with WidgetsBindingObserver {
   }
 
   @override
-  void didUpdateWidget(Widget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    print("Mudoe");
-  }
-
-  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     initPlayer();

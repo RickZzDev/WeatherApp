@@ -104,7 +104,7 @@ class _MyAppState extends State<MyApp> {
         children: <Widget>[
           SplashScreen(
             seconds: 5,
-            // navigateAfterFuture:  ,
+            // navigateAfterFuture: awaitHttpResponse(),
             imageBackground: AssetImage("assets/cityArt8.jpeg"),
             navigateAfterSeconds: Home(
               listWeather: _list,
