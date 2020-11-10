@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:weatherApp/components/cards/card_weather_main.dart';
 import 'package:weatherApp/components/cards/card_weather_sub.dart';
 import 'package:weatherApp/components/modals/modal_img.dart';
@@ -40,7 +40,6 @@ class HomeView extends HomeViewModel {
 
   @override
   Widget build(BuildContext context) {
-    CarouselController carouselController = new CarouselController();
     // carouselController.
     localListWeather = _listWeathers;
     return Scaffold(
@@ -74,10 +73,13 @@ class HomeView extends HomeViewModel {
             ? ShimerScreen(
                 imgName: arrayImages[0],
               )
-            : CarouselSlider.builder(
+            : Swiper(
                 itemCount: localListWeather.length,
+                loop: false,
+                onIndexChanged: (value) {
+                  myIndexLocal = value;
+                },
                 itemBuilder: (context, int _myIndex) {
-                  myIndexLocal = _myIndex;
                   return Container(
                     padding: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.15,
@@ -126,10 +128,10 @@ class HomeView extends HomeViewModel {
                     width: MediaQuery.of(context).size.width,
                   );
                 },
-                options: CarouselOptions(
-                    viewportFraction: 1,
-                    height: MediaQuery.of(context).size.height,
-                    enableInfiniteScroll: false),
+                // options: CarouselOptions(
+                //     viewportFraction: 1,
+                //     height: MediaQuery.of(context).size.height,
+                //     enableInfiniteScroll: false),
               )
 
         // This trailing comma makes auto-formatting nicer for build methods.
