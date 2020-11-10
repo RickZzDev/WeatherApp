@@ -43,6 +43,7 @@ class HomeView extends HomeViewModel {
     // carouselController.
     localListWeather = _listWeathers;
     return Scaffold(
+        backgroundColor: Colors.black,
         appBar: AppBar(
           // toolbarOpacity: 0,
           backgroundColor: Colors.transparent,
@@ -79,6 +80,9 @@ class HomeView extends HomeViewModel {
                 onIndexChanged: (value) {
                   myIndexLocal = value;
                 },
+                layout: SwiperLayout.STACK,
+                itemHeight: MediaQuery.of(context).size.height,
+                itemWidth: MediaQuery.of(context).size.width,
                 itemBuilder: (context, int _myIndex) {
                   return Container(
                     padding: EdgeInsets.only(
