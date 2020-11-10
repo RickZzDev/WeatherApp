@@ -13,7 +13,7 @@ class DataBaseHelper {
   String colId = "id";
   String colCityName = "cityName";
   String colImgPath = "imgPath";
-  String colIsImageFromDevice = "isImageFromDevice";
+  String colIsImageFromDevice = "isImgFromDevice";
 
   DataBaseHelper._createInstance();
 
@@ -45,12 +45,14 @@ class DataBaseHelper {
   }
 
   //Incluir um objeto
-  Future<int> insertImgCity(ImgModel imgModel, bool _imgFromDevice) async {
+  Future insertImgCity(ImgModel imgModel, dynamic _imgFromDevice) async {
     Database db = await this.database;
     ImgModel _response = await getByName(imgModel.cityName);
-    if (_response == null)
+
+    if (_response == null) {
       db.insert(imgTable, imgModel.toMap());
-    else {
+    } else {
+      _response.isImgFromDevice = _imgFromDevice;
       imgModel.id = _response.id;
       updateImage(imgModel);
     }
@@ -77,7 +79,7 @@ class DataBaseHelper {
   Future<ImgModel> getByName(String cityName) async {
     Database db = await this.database;
     List<Map> maps = await db.query(imgTable,
-        columns: [colId, colImgPath, colCityName],
+        columns: [colId, colImgPath, colCityName, colIsImageFromDevice],
         where: "$colCityName = ?",
         whereArgs: [cityName]);
 

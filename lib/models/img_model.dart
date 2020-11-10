@@ -1,14 +1,14 @@
 class ImgModel {
   int id;
   String cityName;
-  bool isImgFromDevice;
+  dynamic isImgFromDevice;
   String imgPath;
 
   ImgModel(this.id, this.cityName, this.imgPath, this.isImgFromDevice);
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      "id": id,
+      // "id": id,
       "cityName": cityName,
       "imgPath": imgPath,
       "isImgFromDevice": isImgFromDevice

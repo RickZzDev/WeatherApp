@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:weatherApp/components/generics/generic_button.dart';
 import 'package:weatherApp/database/databaseHelper.dart';
-import 'package:weatherApp/models/img_model.dart';
 
 class ModalChooseImage extends StatefulWidget {
   final Function _chooseImage;
@@ -30,18 +29,20 @@ class _ModalChooseImageState extends State<ModalChooseImage> {
     });
   }
 
-  Future sendLocalImgPathToDb(String _cityName, String _path) async {
-    Map<String, dynamic> map = {
-      "cityName": _cityName,
-      "imgPath": _path,
-      "isImgFromDevice": true
-    };
-    ImgModel _imgModelFromMap = ImgModel.fromMap(map);
-    await db.insertImgCity(_imgModelFromMap, false);
-    // setState(() {
-    //   teste[myIndexLocal].imgPath = path;
-    // });
-  }
+  // Future sendLocalImgPathToDb(String _cityName, String _path) async {
+  //   Map<String, dynamic> map = {
+  //     "cityName": _cityName,
+  //     "imgPath": _path,
+  //     "isImgFromDevice": true
+  //   };
+  //   ImgModel _imgModelFromMap = ImgModel.fromMap(map);
+  //   await db.insertImgCity(_imgModelFromMap, false);
+  //   widget._chooseImage(
+  //       widget._arrayImages[_selectedImg.toInt()], widget._cityName);
+  //   // setState(() {
+  //   //   teste[myIndexLocal].imgPath = path;
+  //   // });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -168,21 +169,23 @@ class _ModalChooseImageState extends State<ModalChooseImage> {
                 ),
               ),
             ),
-            MaterialButton(
-              color: Colors.purple,
-              textColor: Colors.white,
-              onPressed: !_sending
-                  ? () => {
-                        setState(() {
-                          _sending = !_sending;
-                        }),
-                        widget._chooseImage(
-                            widget._arrayImages[_selectedImg.toInt()],
-                            widget._cityName)
-                      }
-                  : () => Navigator.pop(context),
-              child: Text(_sending ? "Voltar" : "Salvar wallpaper"),
-            )
+            _chooseFromApp != null
+                ? MaterialButton(
+                    color: Colors.purple,
+                    textColor: Colors.white,
+                    onPressed: !_sending
+                        ? () => {
+                              setState(() {
+                                _sending = !_sending;
+                              }),
+                              widget._chooseImage(
+                                  widget._arrayImages[_selectedImg.toInt()],
+                                  widget._cityName)
+                            }
+                        : () => Navigator.pop(context),
+                    child: Text(_sending ? "Voltar" : "Salvar wallpaper"),
+                  )
+                : SizedBox()
           ],
         );
       },

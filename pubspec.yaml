@@ -45,6 +45,7 @@ dependencies:
   firebase_storage:
   image_picker:
   provider: ^4.3.2+2
+  flutter_swiper: ^1.1.6
 
 dev_dependencies:
   flutter_test:

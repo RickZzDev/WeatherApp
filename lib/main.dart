@@ -55,11 +55,12 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       imgsDb.length > 0
           ? imgsDb.forEach((img) {
-              img.cityName == _city.location.name
-                  ? _city.imgPath = img.imgPath
-                  : null;
+              if (img.cityName == _city.location.name) {
+                _city.imgPath = img.imgPath;
+                _city.isImgFromDevice = img.isImgFromDevice;
+              }
             })
-          : null;
+          : DoNothingAction();
       listWeathers.add(_city);
     });
   }
@@ -98,6 +99,40 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    Widget _introScreen(List<WeatherClass> _list) {
+      return Stack(
+        children: <Widget>[
+          SplashScreen(
+            seconds: 5,
+            // navigateAfterFuture:  ,
+            imageBackground: AssetImage("assets/cityArt8.jpeg"),
+            navigateAfterSeconds: Home(
+              listWeather: _list,
+            ),
+            routeName: "/home",
+            loaderColor: Colors.transparent,
+          ),
+          Column(
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.purple.withOpacity(0.4),
+                  ),
+                ),
+              )
+            ],
+          ),
+          Center(
+            child: Container(
+              height: 250,
+              child: Lottie.asset("assets/animations/loading.json"),
+            ),
+          )
+        ],
+      );
+    }
+
     return MaterialApp(
       title: 'Weather App',
       debugShowCheckedModeBanner: false,
@@ -113,37 +148,4 @@ class _MyAppState extends State<MyApp> {
       home: _introScreen(listWeathers),
     );
   }
-}
-
-Widget _introScreen(List<WeatherClass> _list) {
-  return Stack(
-    children: <Widget>[
-      SplashScreen(
-        seconds: 10,
-        imageBackground: AssetImage("assets/cityArt8.jpeg"),
-        navigateAfterSeconds: Home(
-          listWeather: _list,
-        ),
-        routeName: "/home",
-        loaderColor: Colors.transparent,
-      ),
-      Column(
-        children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.purple.withOpacity(0.4),
-              ),
-            ),
-          )
-        ],
-      ),
-      Center(
-        child: Container(
-          height: 250,
-          child: Lottie.asset("assets/animations/loading.json"),
-        ),
-      )
-    ],
-  );
 }

@@ -26,7 +26,7 @@ abstract class HomeViewModel extends State<Home> with WidgetsBindingObserver {
   DataBaseHelper db = DataBaseHelper();
 
   List<ImgModel> contatos = List<ImgModel>();
-  List<WeatherClass> teste = [];
+  List<WeatherClass> localListWeather = [];
   AudioPlayer advancedPlayer;
   AudioCache audioCache;
   String localFilePath;
@@ -42,6 +42,12 @@ abstract class HomeViewModel extends State<Home> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     testeFire();
     arrayImages.shuffle();
+  }
+
+  @override
+  void didUpdateWidget(Widget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print("Mudoe");
   }
 
   @override
@@ -75,14 +81,16 @@ abstract class HomeViewModel extends State<Home> with WidgetsBindingObserver {
 
   Future getImage() async {
     final pickedFile = await ImagePicker.pickImage(source: ImageSource.gallery);
-
+    print(localListWeather[myIndexLocal].location.name);
+    localImage = File(pickedFile.path);
+    ImgModel teste2 = ImgModel(
+        0, localListWeather[myIndexLocal].location.name, pickedFile.path, 1);
+    await db.insertImgCity(teste2, 1);
     setState(() {
-      if (pickedFile != null) {
-        localImage = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
+      localListWeather[myIndexLocal].isImgFromDevice = 1;
+      localListWeather[myIndexLocal].imgPath = teste2.imgPath;
     });
+    Navigator.pop(context);
   }
 
   Future getPreferencesInstance() async {
@@ -112,7 +120,7 @@ abstract class HomeViewModel extends State<Home> with WidgetsBindingObserver {
     // audios/sunny.mp3
     actualValue == true || actualValue == null
         ? audioCache.play(
-            "audios/${AudioFile.returnFileUrl(condition: teste[0].current.condition.text).url}.mp3")
+            "audios/${AudioFile.returnFileUrl(condition: localListWeather[0].current.condition.text).url}.mp3")
         : advancedPlayer.stop();
     setState(() {
       soundCache = actualValue;

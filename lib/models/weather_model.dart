@@ -3,6 +3,7 @@ class WeatherClass {
   Current current;
   Forecast forecast;
   String imgPath;
+  dynamic isImgFromDevice = 0;
 
   WeatherClass({this.location, this.current, this.forecast});
 

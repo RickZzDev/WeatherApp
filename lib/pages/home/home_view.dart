@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +17,16 @@ class HomeView extends HomeViewModel {
   HomeView(this._listWeathers);
 
   void sendImgToDb(String path, String cityName) async {
-    Map<String, dynamic> map = {"cityName": cityName, "imgPath": path};
+    Map<String, dynamic> map = {
+      "cityName": cityName,
+      "imgPath": path,
+      "isImgFromDevice": 0
+    };
     ImgModel _imgModelFromMap = ImgModel.fromMap(map);
-    await db.insertImgCity(_imgModelFromMap, false);
+    await db.insertImgCity(_imgModelFromMap, 0);
     setState(() {
-      teste[myIndexLocal].imgPath = path;
+      localListWeather[myIndexLocal].isImgFromDevice = 0;
+      localListWeather[myIndexLocal].imgPath = path;
     });
   }
 
@@ -33,7 +40,9 @@ class HomeView extends HomeViewModel {
 
   @override
   Widget build(BuildContext context) {
-    teste = _listWeathers;
+    CarouselController carouselController = new CarouselController();
+    // carouselController.
+    localListWeather = _listWeathers;
     return Scaffold(
         appBar: AppBar(
           // toolbarOpacity: 0,
@@ -61,12 +70,12 @@ class HomeView extends HomeViewModel {
           ],
         ),
         extendBodyBehindAppBar: true,
-        body: teste.length == 0
+        body: localListWeather.length == 0
             ? ShimerScreen(
                 imgName: arrayImages[0],
               )
             : CarouselSlider.builder(
-                itemCount: teste.length,
+                itemCount: localListWeather.length,
                 itemBuilder: (context, int _myIndex) {
                   myIndexLocal = _myIndex;
                   return Container(
@@ -84,7 +93,7 @@ class HomeView extends HomeViewModel {
                             SizedBox(
                               height: 45,
                               child: Text(
-                                teste[_myIndex].location.name,
+                                localListWeather[_myIndex].location.name,
                                 style: TextStyle(
                                     fontFamily: "Lobster",
                                     color: Colors.white,
@@ -94,10 +103,10 @@ class HomeView extends HomeViewModel {
                             SizedBox(
                               height: 5,
                             ),
-                            CardMainWeather(teste[_myIndex]),
+                            CardMainWeather(localListWeather[_myIndex]),
                           ],
                         ),
-                        CardWeatherSub(teste[_myIndex],
+                        CardWeatherSub(localListWeather[_myIndex],
                             configurandoModalBottomSheet, getUrlAnimation),
                       ],
                     ),
@@ -105,8 +114,12 @@ class HomeView extends HomeViewModel {
                       color: Colors.transparent,
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: teste[_myIndex].imgPath != null
-                            ? AssetImage("assets/${teste[_myIndex].imgPath}")
+                        image: localListWeather[_myIndex].imgPath != null
+                            ? localListWeather[_myIndex].isImgFromDevice == 1
+                                ? FileImage(
+                                    File(localListWeather[_myIndex].imgPath))
+                                : AssetImage(
+                                    "assets/${localListWeather[_myIndex].imgPath}")
                             : AssetImage("assets/${arrayImages[_myIndex]}"),
                       ),
                     ),
