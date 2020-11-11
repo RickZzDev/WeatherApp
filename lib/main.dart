@@ -103,8 +103,9 @@ class _MyAppState extends State<MyApp> {
       return Stack(
         children: <Widget>[
           SplashScreen(
-            seconds: 5,
+            seconds: 7,
             // navigateAfterFuture: awaitHttpResponse(),
+
             imageBackground: AssetImage("assets/cityArt8.jpeg"),
             navigateAfterSeconds: Home(
               listWeather: _list,
