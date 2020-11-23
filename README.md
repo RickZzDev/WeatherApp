@@ -17,4 +17,5 @@ samples, guidance on mobile development, and a full API reference.
 # WeatherApp
 
 
+
 ![alt text](https://github.com/RickZzDev/WeatherApp/blob/main/assets/images/gitImages/1.jpeg)
