@@ -17,4 +17,10 @@ samples, guidance on mobile development, and a full API reference.
 # WeatherApp
 
 
-![alt text](https://github.com/RickZzDev/WeatherApp/blob/main/assets/images/gitImages/1.jpeg)
+
+![alt text](https://github.com/RickZzDev/WeatherApp/blob/main/assets/gitImages/1.jpeg)
+![alt text](https://github.com/RickZzDev/WeatherApp/blob/main/assets/gitImages/2.jpeg)
+![alt text](https://github.com/RickZzDev/WeatherApp/blob/main/assets/gitImages/3.jpeg)
+![alt text](https://github.com/RickZzDev/WeatherApp/blob/main/assets/gitImages/4.jpeg)
+![alt text](https://github.com/RickZzDev/WeatherApp/blob/main/assets/gitImages/5.jpeg)
+![alt text](https://github.com/RickZzDev/WeatherApp/blob/main/assets/gitImages/6.jpeg)
