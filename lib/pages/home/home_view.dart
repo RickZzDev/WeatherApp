@@ -80,9 +80,9 @@ class HomeView extends HomeViewModel {
                 onIndexChanged: (value) {
                   myIndexLocal = value;
                 },
-                // layout: SwiperLayout.STACK,
+                layout: SwiperLayout.STACK,
                 // itemHeight: MediaQuery.of(context).size.height,
-                // itemWidth: MediaQuery.of(context).size.width,
+                itemWidth: MediaQuery.of(context).size.width,
                 itemBuilder: (context, int _myIndex) {
                   // myIndexLocal = _myIndex;
                   return Container(
